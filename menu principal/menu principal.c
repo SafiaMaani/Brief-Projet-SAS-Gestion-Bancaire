@@ -1,5 +1,32 @@
 #include <stdio.h>
 
+//creation de compte ... 
+int choixMulti, quitterReMenu;
+void creationCompte()
+  {
+    char cin [10], nom [10], prenom[10];
+    int montant;
+    
+    printf("CIN : ");
+    scanf("%s",&cin);
+    
+    printf("Nom : ");
+    scanf(" %s",&nom);
+    
+    printf("Prenom : ");
+    scanf(" %s",&prenom);
+    
+    printf("Montant : ");
+    scanf("%d",&montant);
+    
+ system("cls");
+ 	printf("vos informations :\n\n");
+    printf("Nom: %s\n",nom);
+    printf("Prenom: %s\n",prenom);
+    printf("CIN: %s\n",cin);
+    printf("Montant: %d\n\n",montant);    
+    
+  }
 void menuFonction(void)
  {
       int menu;
@@ -20,11 +47,11 @@ system("cls");
 	{
 		case 1:
 			printf("Creation de compte\n");
-			//creationCompte();
+			creationCompte();
 			break;
 		case 2:
 			printf("Creation de plusiers comptes\n");
-			//creationCompte();    //if the user hopes to create an other account ... we recall creationCompte function ...
+			creationCompte();    //if the user hopes to create an other account ... we recall creationCompte function ...
 			break;
 		case 3:
 			printf("Operations\n");
