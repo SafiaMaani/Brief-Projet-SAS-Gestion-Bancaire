@@ -46,12 +46,52 @@ system("cls");
 		switch (menu)
 	{
 		case 1:
+system("cls");		
 			printf("Creation de compte\n");
 			creationCompte();
+			printf("Le compte a ete cree avec succes !\n\n");
+			
+    		printf("1. Voulez-vous revenir au menu principal ?\n");
+    		printf("2. QUITTER !\n");
+			scanf("%d",&quitterReMenu);
+				if(quitterReMenu == 1)
+				{
+					menuFonction();
+				}
+				else 
+				{
+				printf("A bientot!");
+				}
 			break;
-		case 2:
-			printf("Creation de plusiers comptes\n");
-			creationCompte();    //if the user hopes to create an other account ... we recall creationCompte function ...
+			case 2:			
+			system ("cls");
+				printf("Creation de plusiers comptes\n");
+				creationCompte();
+				printf("Le compte a ete cree avec succes !\n\n");
+			
+///After creating the first account, giving the user 3 choices : if he hopes to create an other account, back to the principal menu or just leave ..
+
+				do{
+					printf("1. Voulez-vous creer un autre compte ?\n");
+					printf("2. Revenir au Menu Principal !\n");
+					printf("3. QUITTER !\n");
+					scanf("%d",&choixMulti);
+			
+					if(choixMulti == 1)
+					{
+						creationCompte();
+						printf("Le compte a ete cree avec succes !\n\n");
+					}
+					else if (choixMulti == 2)
+					{
+						menuFonction();
+					}
+					else 
+					{
+						printf("A bientot!");
+					}
+				} while(choixMulti == 1);	
+			
 			break;
 		case 3:
 			printf("Operations\n");
