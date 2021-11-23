@@ -14,9 +14,11 @@ system ("cls");
 	{	
 		case 1:
 			printf("---RETRAIT---\n");
+			//je dois creer une fonction qui va me calculer le nv Mt apres le RETRAIT d'argent ...
 			break;
 		case 2:
 			printf("---DEPOT---\n");
+		  	//je dois creer une fonction qui va me calculer le nv Mt apres le DEPOT d'argent ...
 			break;
 		default:
 			operation();
