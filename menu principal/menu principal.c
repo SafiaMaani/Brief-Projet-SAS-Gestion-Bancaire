@@ -1,6 +1,36 @@
 #include <stdio.h>
 
+float retraitArgent ( )
+{
+	float montantAretirer;
+	float solde ;
 
+	printf("Veuillez saisir un montant a retirer\t");
+	scanf("%f",&montantAretirer);
+
+	if ( montantAretirer <= solde )
+	{
+		solde -= montantAretirer;
+		printf("Vous avez retire %.2f DH , Votre solde est de %.2f DH\n",montantAretirer,solde);
+	}
+	else 
+	{
+		printf("Veuillez saisir un montant inferieur ou egale a %.2f DH\n\n\n", solde);
+	}
+}
+
+float depotArgent ( )
+{
+	float montantAdeposer;
+	float solde ;
+
+	printf("Veuillez saisir un montant a deposer \t");
+	scanf("%f",&montantAdeposer);
+
+	solde += montantAdeposer;
+
+	printf("Votre compte a ete allimente de %.2f DH\nVotre solde est de %.2f DH\n\n\n",montantAdeposer,solde);	
+}
 int choixOperation;
 void operation()
 {
@@ -14,11 +44,9 @@ system ("cls");
 	{	
 		case 1:
 			printf("---RETRAIT---\n");
-			//je dois creer une fonction qui va me calculer le nv Mt apres le RETRAIT d'argent ...
 			break;
 		case 2:
 			printf("---DEPOT---\n");
-		  	//je dois creer une fonction qui va me calculer le nv Mt apres le DEPOT d'argent ...
 			break;
 		default:
 			operation();
@@ -124,11 +152,47 @@ system("cls");	// clean ecran : ça efface ce qui était ecrit avant ...
 			operation();
 			if(choixOperation == 1)
 			{
-				printf("CALL FONCTION RETRAIT");
+				retraitArgent();
+
+				printf("1. Voulez-vous revenir au menu principal ?\n");
+				printf("2. refaire une autre operation !\n");
+    			printf("3. QUITTER !\n");
+				scanf("%d",&quitterReMenu);
+
+				if(quitterReMenu == 1)
+				{
+					menuFonction();
+				}
+				else if(quitterReMenu == 2)
+				{
+					operation();
+				}
+				else 
+				{
+				printf("A bientot!");
+				}
 			}
 			else if(choixOperation == 2)
 			{
-				printf("CALL FONCTION DEPOT");
+				depotArgent();
+
+				printf("1. Voulez-vous revenir au menu principal ?\n");
+				printf("2. refaire une autre operation !\n");
+    			printf("3. QUITTER !\n");
+				scanf("%d",&quitterReMenu);
+
+				if(quitterReMenu == 1)
+				{
+					menuFonction();
+				}
+				else if(quitterReMenu == 2)
+				{
+					operation();
+				}
+				else 
+				{
+				printf("A bientot!");
+				}
 			}
 			else
 			{
