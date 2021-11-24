@@ -1,87 +1,209 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <Windows.h>
 
-float retraitArgent ( )
+int choix,i = 0,n = 0;
+char cin[10];
+
+typedef struct
 {
-	float montantAretirer;
-	float solde ;
+	char cin [10];
+	char nom [10];
+	char prenom[10];
+    float solde;
+}client;
 
-	printf("Veuillez saisir un montant a retirer\t");
-	scanf("%f",&montantAretirer);
+ client c[100];
+ 
+void rechercheCIN ()
+{
+		for ( i = 0; i < n ;i++)
+		{
+			printf ("entrer le CIN");
+			scanf("%s",cin);
+			
+				if (strcmp(cin, c[i].cin) == 0)
+				{
+					printf("***LES INFOS DE TITULAIRE DE COMPTE***\n\n NOM : %s\nPRENOM : %s\nCIN : %s\nSOLDE : %.2fDH",c[i].nom,c[i].prenom,c[i].cin,c[i].solde);	
+				}
+				else
+				{
+					printf("Compte introuvable");
+				}	
+		}	
+}
 
-	if ( montantAretirer <= solde )
+void affichage ()
+{
+	printf("Veuillez choisir le type d'affichage des infos client !\n");
+	printf("1. Recherche par CIN\n");
+	printf("2. Par Ordre Ascendant\n");
+	printf("3. Recherche par Ordre Descendant\n");
+	printf("4. Recherche par Ordre Ascendant (les comptes bancaires ayant un montant supérieur à un chiffre introduit)\n");
+	printf("5. Recherche par Ordre descendant (les comptes bancaires ayant un montant supérieur à un chiffre introduit)\n");
+	scanf("%d",&choix);
+	
+			switch(choix) 
+			{
+				case 1 :
+					printf("Recherche par CIN\n");
+					rechercheCIN();
+					break;
+				case 2 :
+					printf("Recherche par Ordre Ascendant\n");
+					break;
+				case 3 :
+					printf("3. Recherche par Ordre Descendant\n");
+					break;
+				case 4 :
+					printf("4. Recherche par Ordre Ascendant (les comptes bancaires ayant un montant superieur a un chiffre introduit)\n");
+					break;
+				case 5 :
+					printf("4. Recherche par Ordre descendant (les comptes bancaires ayant un montant superieur a un chiffre introduit)\n");
+					break;
+				default:
+					break;						
+			}
+}
+
+void operations()
+{
+	float montantX;
+	int  found = 0; // au lieu d'utiliser les booleans
+	
+			
+	printf("\n**Verification d'indentite**\n\n"); 
+	printf("entrer un cin\n");
+ 	scanf("%s",cin);
+ 	
+ 		for ( i = 0; i < n ;i++)
+		{
+		 	if (strcmp(cin, c[i].cin) == 0)
+		 	{
+		 		printf("Voulez-vous faire un Retrait ou DEPOT d'argent ?\n");
+				printf("1. --RETRAIT--\n");
+				printf("2. --DEPOT--\n");
+				scanf("%d",&choix);
+															
+				printf("Veuillez entrer un montant");		
+				scanf("%f",&montantX);		
+				
+						switch(choix)
+						{	
+							case 1:							
+									
+									if(montantX <= c[i].solde)
+									{
+										c[i].solde -= montantX ;
+										printf("Vous avez retire %.2f DH , Votre solde est de %.2f DH\n",montantX,c[i].solde);
+												printf("1. Voulez-vous revenir au menu principal ?\n");
+									    		printf("2. QUITTER !\n");
+												scanf("%d",&choix);
+													if(choix == 1)
+													{
+														menuFonction();
+													}
+													else 
+													{
+													printf("A bientot!");
+													}
+									}
+									else 
+									{
+										printf("Veuillez saisir un montant inferieur ou egale a votre solde");
+										operations ();
+									}
+								break;
+								
+							case 2:								
+									c[i].solde += montantX ;
+									
+									printf("Vous avez depose %.2f DH , Votre solde est de %.2f DH\n",montantX,c[i].solde);
+												printf("1. Voulez-vous revenir au menu principal ?\n");
+									    		printf("2. QUITTER !\n");
+												scanf("%d",&choix);
+													if(choix == 1)
+													{
+														menuFonction();
+													}
+													else 
+													{
+													printf("A bientot!");
+													}	
+		
+								break;
+							default:
+								operations();
+								break;	
+						}		
+						break;
+						
+			}
+		}
+		printf("Compte introuvable");
+			sleep(5);
+			menuFonction();
+}
+// creation plusieur comptes 
+void creationPlsrComptes ()
+{
+	int nb;
+	int j;
+	printf("donner le nombre de comptes : \n");
+	scanf("%d",&nb);
+	for (j = 0; j < nb+n ; j++)
 	{
-		solde -= montantAretirer;
-		printf("Vous avez retire %.2f DH , Votre solde est de %.2f DH\n",montantAretirer,solde);
-	}
-	else 
-	{
-		printf("Veuillez saisir un montant inferieur ou egale a %.2f DH\n\n\n", solde);
-	}
+			printf("Veuillez entrer le nom : ");
+			scanf("%s",c[j].nom);
+			
+			printf("Veuillez entrer le prenom : ");
+			scanf("%s",c[j].prenom);
+			
+			printf("Veuillez entrer le cin : ");
+			scanf("%s",c[j].cin);
+			
+			printf("Veuillez entrer un montant : ");
+			scanf("%f",&c[j].solde);
+	}	
+	n = n + nb;
+		for(j = 0; j < nb+n;j++)
+ 			{
+	 			printf("vos informations :\n\n");
+			    printf("Nom: %s\n",c[j].nom);
+			    printf("Prenom: %s\n",c[j].prenom);
+			    printf("CIN: %s\n",c[j].cin);
+			    printf("Montant: %.2f DH\n\n",c[j].solde);			
+			} 
 }
-
-float depotArgent ( )
-{
-	float montantAdeposer;
-	float solde ;
-
-	printf("Veuillez saisir un montant a deposer \t");
-	scanf("%f",&montantAdeposer);
-
-	solde += montantAdeposer;
-
-	printf("Votre compte a ete allimente de %.2f DH\nVotre solde est de %.2f DH\n\n\n",montantAdeposer,solde);	
-}
-int choixOperation;
-void operation()
-{
-system("cls");	
-	printf("Voulez-vous faire un Retrait ou DEPOT d'argent ?\n");
-	printf("1. --RETRAIT--\n");
-	printf("2. --DEPOT--\n");
-	scanf("%d",&choixOperation);
-system ("cls");	
-	switch(choixOperation)
-	{	
-		case 1:
-			printf("---RETRAIT---\n");
-			break;
-		case 2:
-			printf("---DEPOT---\n");
-			break;
-		default:
-			operation();
-			break;	
-	}
-}
-
 //creation de compte ... 
-int choixMulti, quitterReMenu;
 void creationCompte()
   {
-    char cin [10], nom [10], prenom[10];
-    int montant;
-    
-    printf("CIN : ");
-    scanf("%s",&cin);
-    
-    printf("Nom : ");
-    scanf(" %s",&nom);
-    
-    printf("Prenom : ");
-    scanf(" %s",&prenom);
-    
-    printf("Montant : ");
-    scanf("%d",&montant);
-    
+		    printf("Veuillez entrer le nom : ");
+			scanf("%s",c[i].nom);
+			
+			printf("Veuillez entrer le prenom : ");
+			scanf("%s",c[i].prenom);
+			
+			printf("Veuillez entrer le cin : ");
+			scanf("%s",c[i].cin);
+			
+			printf("Veuillez entrer un montant : ");
+			scanf("%f",&c[i].solde);
+    		
+    		//n++;
  system("cls");
- 	printf("vos informations :\n\n");
-    printf("Nom: %s\n",nom);
-    printf("Prenom: %s\n",prenom);
-    printf("CIN: %s\n",cin);
-    printf("Montant: %d\n\n",montant);    
-    
+ 			for(i = 0; i < n;i++)
+ 			{
+	 			printf("vos informations :\n\n");
+			    printf("Nom: %s\n",c[i].nom);
+			    printf("Prenom: %s\n",c[i].prenom);
+			    printf("CIN: %s\n",c[i].cin);
+			    printf("Montant: %.2f DH\n\n",c[i].solde);			
+			} 
   }
-void menuFonction(void){
+void menuFonction()
+{
       int menu;
     
 system("cls");	// clean ecran : ça efface ce qui était ecrit avant ...
@@ -106,8 +228,8 @@ system("cls");	// clean ecran : ça efface ce qui était ecrit avant ...
 			
     		printf("1. Voulez-vous revenir au menu principal ?\n");
     		printf("2. QUITTER !\n");
-			scanf("%d",&quitterReMenu);
-				if(quitterReMenu == 1)
+			scanf("%d",&choix);
+				if(choix == 1)
 				{
 					menuFonction();
 				}
@@ -119,88 +241,17 @@ system("cls");	// clean ecran : ça efface ce qui était ecrit avant ...
 			case 2:			
 			system ("cls");
 				printf("Creation de plusiers comptes\n");
-				creationCompte();
-				printf("Le compte a ete cree avec succes !\n\n");
-			
-///After creating the first account, giving the user 3 choices : if he hopes to create an other account, back to the principal menu or just leave ..
-
-				do{
-					printf("1. Voulez-vous creer un autre compte ?\n");
-					printf("2. Revenir au Menu Principal !\n");
-					printf("3. QUITTER !\n");
-					scanf("%d",&choixMulti);
-			
-					if(choixMulti == 1)
-					{
-						creationCompte();
-						printf("Le compte a ete cree avec succes !\n\n");
-					}
-					else if (choixMulti == 2)
-					{
-						menuFonction();
-					}
-					else 
-					{
-						printf("A bientot!");
-					}
-				} while(choixMulti == 1);	
-			
+				creationPlsrComptes();
+				menuFonction();
 			break;
 //the user will choose if he wonna do un RETRAIT or un DEPOT d'argent ...			
 		case 3:
 			printf("Operations\n");
-			operation();
-			if(choixOperation == 1)
-			{
-				retraitArgent();
-
-				printf("1. Voulez-vous revenir au menu principal ?\n");
-				printf("2. refaire une autre operation !\n");
-    			printf("3. QUITTER !\n");
-				scanf("%d",&quitterReMenu);
-
-				if(quitterReMenu == 1)
-				{
-					menuFonction();
-				}
-				else if(quitterReMenu == 2)
-				{
-					operation();
-				}
-				else 
-				{
-				printf("A bientot!");
-				}
-			}
-			else if(choixOperation == 2)
-			{
-				depotArgent();
-
-				printf("1. Voulez-vous revenir au menu principal ?\n");
-				printf("2. refaire une autre operation !\n");
-    			printf("3. QUITTER !\n");
-				scanf("%d",&quitterReMenu);
-
-				if(quitterReMenu == 1)
-				{
-					menuFonction();
-				}
-				else if(quitterReMenu == 2)
-				{
-					operation();
-				}
-				else 
-				{
-				printf("A bientot!");
-				}
-			}
-			else
-			{
-				operation();
-			}
+			operations();
 			break;
 		case 4:
 			printf("Affichage\n");
+			affichage ();
 			break;
 	  	case 5:
 			printf("Fedilisation\n");
