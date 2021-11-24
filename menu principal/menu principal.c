@@ -3,7 +3,10 @@
 #include <string.h>
 #include <Windows.h>
 
-int choix,i = 0,n = 0;
+int choix;
+int i = 0;
+int j = 0;
+int n = 0;
 char cin[10];
 
 typedef struct
@@ -18,30 +21,29 @@ typedef struct
  
 void rechercheCIN ()
 {
+		printf ("\n entrer le CIN");
+		scanf("%s",cin);
+		
 		for ( i = 0; i < n ;i++)
-		{
-			printf ("entrer le CIN");
-			scanf("%s",cin);
-			
+		{	
 				if (strcmp(cin, c[i].cin) == 0)
 				{
 					printf("***LES INFOS DE TITULAIRE DE COMPTE***\n\n NOM : %s\nPRENOM : %s\nCIN : %s\nSOLDE : %.2fDH",c[i].nom,c[i].prenom,c[i].cin,c[i].solde);	
 				}
-				else
-				{
-					printf("Compte introuvable");
-				}	
 		}	
+		printf("\nCompte introuvable");	
+		sleep (3);
 }
-
+void rechercheAscDesc ()
+{
+	//tri par ordre des soldes ..
+}
 void affichage ()
 {
 	printf("Veuillez choisir le type d'affichage des infos client !\n");
 	printf("1. Recherche par CIN\n");
-	printf("2. Par Ordre Ascendant\n");
-	printf("3. Recherche par Ordre Descendant\n");
-	printf("4. Recherche par Ordre Ascendant (les comptes bancaires ayant un montant supérieur à un chiffre introduit)\n");
-	printf("5. Recherche par Ordre descendant (les comptes bancaires ayant un montant supérieur à un chiffre introduit)\n");
+	printf("2. Par Ordre Ascendant Ou Descendant\n");
+	printf("3. Recherche par Ordre Ascendant Ou Descendant (les comptes bancaires ayant un montant supérieur à un chiffre introduit)\n");
 	scanf("%d",&choix);
 	
 			switch(choix) 
@@ -51,16 +53,11 @@ void affichage ()
 					rechercheCIN();
 					break;
 				case 2 :
-					printf("Recherche par Ordre Ascendant\n");
+					printf("Recherche par Ordre Ascendant Ou Descendant\n");
+					
 					break;
 				case 3 :
-					printf("3. Recherche par Ordre Descendant\n");
-					break;
-				case 4 :
-					printf("4. Recherche par Ordre Ascendant (les comptes bancaires ayant un montant superieur a un chiffre introduit)\n");
-					break;
-				case 5 :
-					printf("4. Recherche par Ordre descendant (les comptes bancaires ayant un montant superieur a un chiffre introduit)\n");
+					printf("4. Recherche par Ordre Ascendant Ou Descendant (les comptes bancaires ayant un montant superieur a un chiffre introduit)\n");
 					break;
 				default:
 					break;						
@@ -70,8 +67,6 @@ void affichage ()
 void operations()
 {
 	float montantX;
-	int  found = 0; // au lieu d'utiliser les booleans
-	
 			
 	printf("\n**Verification d'indentite**\n\n"); 
 	printf("entrer un cin\n");
@@ -142,41 +137,42 @@ void operations()
 			}
 		}
 		printf("Compte introuvable");
-			sleep(5);
-			menuFonction();
+		sleep(10);
+		menuFonction();
 }
-// creation plusieur comptes 
+
 void creationPlsrComptes ()
 {
 	int nb;
-	int j;
+
 	printf("donner le nombre de comptes : \n");
 	scanf("%d",&nb);
-	for (j = 0; j < nb+n ; j++)
-	{
-			printf("Veuillez entrer le nom : ");
-			scanf("%s",c[j].nom);
-			
-			printf("Veuillez entrer le prenom : ");
-			scanf("%s",c[j].prenom);
-			
-			printf("Veuillez entrer le cin : ");
-			scanf("%s",c[j].cin);
-			
-			printf("Veuillez entrer un montant : ");
-			scanf("%f",&c[j].solde);
-	}	
+	
+		for (i = 0; i < nb+n ; i++)
+		{
+				printf("Veuillez entrer le nom : ");
+				scanf("%s",c[i].nom);
+				
+				printf("Veuillez entrer le prenom : ");
+				scanf("%s",c[i].prenom);
+				
+				printf("Veuillez entrer le cin : ");
+				scanf("%s",c[i].cin);
+				
+				printf("Veuillez entrer un montant : ");
+				scanf("%f",&c[i].solde);
+		}	
 	n = n + nb;
-		for(j = 0; j < nb+n;j++)
+		for(i = 0; i < nb+n;i++)
  			{
 	 			printf("vos informations :\n\n");
-			    printf("Nom: %s\n",c[j].nom);
-			    printf("Prenom: %s\n",c[j].prenom);
-			    printf("CIN: %s\n",c[j].cin);
-			    printf("Montant: %.2f DH\n\n",c[j].solde);			
+			    printf("Nom: %s\n",c[i].nom);
+			    printf("Prenom: %s\n",c[i].prenom);
+			    printf("CIN: %s\n",c[i].cin);
+			    printf("Montant: %.2f DH\n\n",c[i].solde);			
 			} 
 }
-//creation de compte ... 
+
 void creationCompte()
   {
 		    printf("Veuillez entrer le nom : ");
@@ -191,7 +187,6 @@ void creationCompte()
 			printf("Veuillez entrer un montant : ");
 			scanf("%f",&c[i].solde);
     		
-    		//n++;
  system("cls");
  			for(i = 0; i < n;i++)
  			{
@@ -242,6 +237,7 @@ system("cls");	// clean ecran : ça efface ce qui était ecrit avant ...
 			system ("cls");
 				printf("Creation de plusiers comptes\n");
 				creationPlsrComptes();
+				sleep (5);
 				menuFonction();
 			break;
 //the user will choose if he wonna do un RETRAIT or un DEPOT d'argent ...			
